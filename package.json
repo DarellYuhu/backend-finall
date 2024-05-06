@@ -11,6 +11,7 @@
     "postinstall": "prisma generate",
     "db:seed": "ts-node prisma/seed.ts",
     "db:pull": "npx prisma db pull",
+    "db:migrate": "npx prisma migrate dev",
     "db:generate": "npx prisma generate",
     "db:pull:generate": "npx prisma db pull && npx prisma generate"
   },

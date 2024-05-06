@@ -14,6 +14,9 @@ import RouterReportSummary from "./routes/reportSummary";
 import RouterReportDetail from "./routes/reportDetail";
 import path from "path";
 
+// Controller
+import CurriculumController from "./curriculum/curriculum.controller";
+
 const app: Application = express();
 const httpServer = http.createServer(app);
 const RouterApi = Router();
@@ -36,7 +39,7 @@ app.use("/api", RouterApi);
 (async () => {
   try {
     RouterApi.use("/ping", RouterPing);
-    RouterApi.use("/curriculum", RouterCurriculum);
+    RouterApi.use("/curriculum", CurriculumController);
     RouterApi.use("/subject", RouterSubject);
     RouterApi.use("/rps", RouterRps);
     RouterApi.use("/student-grade", RouterStudentGrade);

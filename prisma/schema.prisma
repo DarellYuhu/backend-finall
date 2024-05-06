@@ -7,121 +7,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admin {
-  id        String    @id @default(uuid())
-  username  String    @unique
-  email     String
-  password  String
-  role      Role      @default(ADMIN)
-  token     String?   @unique
-  createdBy String?
-  updatedBy String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime?
-}
-
 model Employee {
-  id                         String                       @id @default(uuid())
-  nik                        String                       @unique
-  password                   String                       @default("$2b$10$8i4.tmBGcK619R.lL6goi.GBRA3E7y25fARKYRqIPR46PjwlPV9eu")
-  firstName                  String
-  lastName                   String
-  email                      String                       @unique
-  phoneNum                   String?                      @unique
-  Address                    String?
-  degree                     String?
-  major                      Major?
-  token                      String?                      @unique
-  createdBy                  String?
-  updatedBy                  String?
-  createdAt                  DateTime                     @default(now())
-  updatedAt                  DateTime?
-  AKAD_Academic_Consultation AKAD_Academic_Consultation[]
-  AKAD_Activity              AKAD_Activity[]
-  AKAD_Grades_access         AKAD_Grades_access[]
-  AKAD_GuidanceClass         AKAD_GuidanceClass?
-  AKAD_PreRegistration       AKAD_PreRegistration[]
-  AKAD_PreRegistrationData   AKAD_PreRegistrationData[]
-  classroom                  Classroom[]                  @relation("DosenMK")
-  Curriculum                 Curriculum[]
-  proposal_advisor           Proposal[]                   @relation("ProposalAdvisor")
-  proposal_co_advisor1       Proposal[]                   @relation("ProposalCoAdvisor1")
-  proposal_co_advisor2       Proposal[]                   @relation("ProposalCoAdvisor2")
-  proposal_panelis_chairman  Proposal[]                   @relation("ProposalPanelistChairman")
-  proposal_panelis_member    Proposal[]                   @relation("ProposalPanelistMember")
-  proposal_assessment        Proposal_Assessment[]        @relation("Dosen")
-  proposal_changes           Proposal_Changes[]           @relation("Dosen")
-  Rps                        Rps[]
-  skripsi_advisor            Skripsi[]                    @relation("SkripsiAdvisor")
-  skripsi_co_advisor1        Skripsi[]                    @relation("SkripsiCoAdvisor1")
-  skripsi_co_advisor2        Skripsi[]                    @relation("SkripsiCoAdvisor2")
-  skripsi_panelis_chairman   Skripsi[]                    @relation("SkripsiPanelistChairman")
-  skripsi_panelis_member     Skripsi[]                    @relation("SkripsiPanelistMember")
-  skripsi_assessment         Skripsi_Assessment[]         @relation("Dosen")
-  skripsi_changes            Skripsi_Changes[]            @relation("Dosen")
-  proposed_advisor           Submission[]                 @relation("ProposedAdvisor")
-  proposed_co_advisor1       Submission[]                 @relation("ProposedCoAdvisor1")
-  proposed_co_advisor2       Submission[]                 @relation("ProposedCoAdvisor2")
-  thesis_consultation        Thesis_Consultation[]        @relation("ThesisConsultation")
+  id         String       @id @default(uuid())
+  nik        String       @unique
+  password   String       @default("$2b$10$8i4.tmBGcK619R.lL6goi.GBRA3E7y25fARKYRqIPR46PjwlPV9eu")
+  firstName  String
+  lastName   String
+  email      String       @unique
+  phoneNum   String?      @unique
+  Address    String?
+  degree     String?
+  major      Major?
+  token      String?      @unique
+  createdBy  String?
+  updatedBy  String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime?
+  Curriculum Curriculum[]
+  Rps        Rps[]
 
   @@unique([firstName, lastName])
   @@index([email])
 }
 
 model Student {
-  id                         String                       @id @default(uuid())
-  reg_num                    String?                      @unique
-  nim                        String                       @unique
-  password                   String                       @default("$2b$10$8i4.tmBGcK619R.lL6goi.GBRA3E7y25fARKYRqIPR46PjwlPV9eu")
-  firstName                  String
-  lastName                   String?
-  dateOfBirth                DateTime?                    @db.Date
-  gender                     gender
-  religion                   String?
-  studentEmail               String?                      @unique
-  curriculumId               String?
-  arrivalYear                String?
-  address                    String?
-  currentResidenceStatus     String?
-  status                     StudentStatus                @default(ACTIVE)
-  personalEmail              String?                      @unique
-  faculty                    String?
-  major                      Major?
-  majorGlobalId              String?
-  graduate_year              String?
-  phoneNo                    String?
-  areaOfConcentration        Area_Of_Concentration?
-  token                      String?                      @unique
-  guardianName               String?
-  familyRelation             String?
-  guardianEmail              String?
-  guardianPhoneNo            String?
-  createdBy                  String?
-  updatedBy                  String?
-  createdAt                  DateTime                     @default(now())
-  updatedAt                  DateTime?
-  filename                   String?
-  path                       String?
-  biodataCheck               Boolean                      @default(false)
-  AKAD_Academic_Consultation AKAD_Academic_Consultation[]
-  AKAD_ActivityMember        AKAD_ActivityMember[]
-  AKAD_Certificate           AKAD_Certificate[]
-  AKAD_GuidanceClassMember   AKAD_GuidanceClassMember?
-  AKAD_PreRegistrationData   AKAD_PreRegistrationData[]
-  AKAD_Transaction_Grades    AKAD_Transaction_Grades[]
-  ClassStudent               ClassStudent[]
-  FormSPT                    FormSPT[]
-  group_student              Group_Student[]              @relation("StudentMember")
-  proposal_assessment        Proposal_Assessment[]        @relation("Student")
-  proposal_conclusion_value  Proposal_Conclusion[]        @relation("Student")
-  proposal_student           Proposal_Student[]           @relation("ProposalStudent")
-  skripsi_assessment         Skripsi_Assessment[]         @relation("Student")
-  skripsi_conclusion_value   Skripsi_Conclusion[]         @relation("Student")
-  skripsi_student            Skripsi_Student[]            @relation("SkripsiStudent")
-  curriculum                 Curriculum?                  @relation(fields: [curriculumId], references: [id])
-  MajorGlobal                MajorGlobal?                 @relation(fields: [majorGlobalId], references: [id])
-  StudentGrade               StudentGrade[]
-  Tracer_Study               Tracer_Study[]
+  id                     String                 @id @default(uuid())
+  reg_num                String?                @unique
+  nim                    String                 @unique
+  password               String                 @default("$2b$10$8i4.tmBGcK619R.lL6goi.GBRA3E7y25fARKYRqIPR46PjwlPV9eu")
+  firstName              String
+  lastName               String?
+  dateOfBirth            DateTime?              @db.Date
+  gender                 gender
+  religion               String?
+  studentEmail           String?                @unique
+  curriculumId           String?
+  arrivalYear            String?
+  address                String?
+  currentResidenceStatus String?
+  status                 StudentStatus          @default(ACTIVE)
+  personalEmail          String?                @unique
+  faculty                String?
+  major                  Major?
+  majorGlobalId          String?
+  graduate_year          String?
+  phoneNo                String?
+  areaOfConcentration    Area_Of_Concentration?
+  token                  String?                @unique
+  guardianName           String?
+  familyRelation         String?
+  guardianEmail          String?
+  guardianPhoneNo        String?
+  createdBy              String?
+  updatedBy              String?
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime?
+  filename               String?
+  path                   String?
+  biodataCheck           Boolean                @default(false)
+  ClassStudent           ClassStudent[]
+  curriculum             Curriculum?            @relation(fields: [curriculumId], references: [id])
+  MajorGlobal            MajorGlobal?           @relation(fields: [majorGlobalId], references: [id])
+  StudentGrade           StudentGrade[]
 
   @@unique([firstName, lastName])
   @@index([studentEmail, personalEmail])
@@ -170,8 +117,6 @@ model Subject {
   type               SubjectType
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
-  AKAD_Grades        AKAD_Grades[]
-  AKAD_ListOfRequest AKAD_ListOfRequest[]
   Curriculum_Subject Curriculum_Subject[]
   Rps                Rps[]
   Subject_Cpl        Subject_Cpl[]
@@ -181,7 +126,7 @@ model Curriculum_Subject {
   id           String     @id @default(uuid())
   curriculumId String
   subjectId    String
-  semester     Int
+  semester     Int?
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   prerequisite String[]
@@ -189,468 +134,6 @@ model Curriculum_Subject {
   subject      Subject    @relation(fields: [subjectId], references: [id])
 
   @@unique([curriculumId, subjectId])
-}
-
-model FormSPT {
-  id                String    @id @default(uuid())
-  full_name         String
-  reg_num           String
-  date_of_birth     String
-  gender            Gender
-  nik               String
-  nim               String
-  faculty           String
-  major             String
-  minor             String?
-  birth_mother      String
-  phone_num         String
-  personal_email    String
-  graduate_plan     String
-  remaining_credits String
-  remaining_classes String
-  certificateURL    String?
-  approval_fac      status    @default(WAITING)
-  approval_reg      status    @default(WAITING)
-  created_at        DateTime  @default(now())
-  updated_at        DateTime?
-  studentId         String
-  student           Student   @relation(fields: [studentId], references: [nim], onDelete: Cascade)
-}
-
-model Tracer_Study {
-  id          String   @id @default(uuid())
-  kdptimsmh   String
-  kdpstmsmh   String
-  nimhsmsmh   String
-  nmmhsmsmh   String
-  telpomsmh   String
-  emailmsmh   String
-  tahun_lulus String
-  nik         String
-  npwp        String
-  f8          String
-  f504        String?
-  f502        String?
-  f505        String?
-  f506        String?
-  f5a1        String?
-  f5a2        String?
-  f1101       String?
-  f1102       String?
-  f5b         String?
-  f5c         String?
-  f5d         String?
-  f18a        String?
-  f18b        String?
-  f18c        String?
-  f18d        String?
-  f1201       String?
-  f1202       String?
-  f14         String?
-  f15         String?
-  f1761       String?
-  f1762       String?
-  f1763       String?
-  f1764       String?
-  f1765       String?
-  f1766       String?
-  f1767       String?
-  f1768       String?
-  f1769       String?
-  f1770       String?
-  f1771       String?
-  f1772       String?
-  f1773       String?
-  f1774       String?
-  f21         String?
-  f22         String?
-  f23         String?
-  f24         String?
-  f25         String?
-  f26         String?
-  f27         String?
-  f301        String?
-  f302        String?
-  f303        String?
-  f401        String?
-  f402        String?
-  f403        String?
-  f404        String?
-  f405        String?
-  f406        String?
-  f407        String?
-  f408        String?
-  f409        String?
-  f410        String?
-  f411        String?
-  f412        String?
-  f413        String?
-  f414        String?
-  f415        String?
-  f416        String?
-  f6          String?
-  f7          String?
-  f7a         String?
-  f1001       String?
-  f1002       String?
-  f1601       String?
-  f1602       String?
-  f1603       String?
-  f1604       String?
-  f1605       String?
-  f1606       String?
-  f1607       String?
-  f1608       String?
-  f1609       String?
-  f1610       String?
-  f1611       String?
-  f1612       String?
-  f1613       String?
-  f1614       String?
-  created_at  DateTime @default(now())
-  studentId   String
-  student     Student  @relation(fields: [studentId], references: [nim], onDelete: Cascade)
-}
-
-model Proposal_Student {
-  id           String    @id @default(uuid())
-  student_id   String
-  classroom_id String
-  classroom    Classroom @relation("ProposalClassroom", fields: [classroom_id], references: [id])
-  student      Student   @relation("ProposalStudent", fields: [student_id], references: [id])
-}
-
-model Skripsi_Student {
-  id           String     @id @default(uuid())
-  student_id   String
-  classroom_id String?
-  classroom    Classroom? @relation("SkripsiClassroom", fields: [classroom_id], references: [id])
-  student      Student    @relation("SkripsiStudent", fields: [student_id], references: [id])
-}
-
-model Group_Student {
-  id         String  @id @default(uuid())
-  group_id   String
-  student_id String
-  group      Group   @relation("Group", fields: [group_id], references: [id])
-  student    Student @relation("StudentMember", fields: [student_id], references: [id])
-}
-
-model Group {
-  id                  String                @id @default(uuid())
-  progress            Progress?
-  title               String?
-  keywords            String?
-  abstrak             String?
-  reference           String?
-  submission_id       String?               @unique
-  proposal_id         String?               @unique
-  skripsi_id          String?               @unique
-  created_at          DateTime              @default(now())
-  updated_at          DateTime?
-  proposal            Proposal?             @relation("Proposal", fields: [proposal_id], references: [id])
-  skripsi             Skripsi?              @relation("Skripsi", fields: [skripsi_id], references: [id])
-  submission          Submission?           @relation("Submission", fields: [submission_id], references: [id])
-  group_student       Group_Student[]       @relation("Group")
-  thesis_consultation Thesis_Consultation[] @relation("ThesisConsultation")
-  History             Thesis_History[]      @relation("History")
-  Link                Thesis_Link[]         @relation("Link")
-}
-
-model Academic_Calendar {
-  id        String      @id @default(uuid())
-  semester  Semester
-  year      String
-  classroom Classroom[] @relation("Academic")
-}
-
-model Classroom {
-  id               String             @id @default(uuid())
-  dosen_mk_id      String
-  academic_id      String
-  name             Classroom_Name
-  academic         Academic_Calendar  @relation("Academic", fields: [academic_id], references: [id])
-  dosen_mk         Employee           @relation("DosenMK", fields: [dosen_mk_id], references: [id])
-  proposal         Proposal[]         @relation("ProposalClassroom")
-  proposal_student Proposal_Student[] @relation("ProposalClassroom")
-  skripsi          Skripsi[]          @relation("SkripsiClassroom")
-  skripsi_student  Skripsi_Student[]  @relation("SkripsiClassroom")
-  submission       Submission[]       @relation("SubmissionClassroom")
-}
-
-model Submission {
-  id                      String             @id @default(uuid())
-  file_name               String
-  upload_date             DateTime
-  file_size               String
-  file_path               String
-  is_consultation         Boolean
-  proposed_advisor_id     String
-  proposed_co_advisor1_id String?
-  proposed_co_advisor2_id String?
-  is_approve              Submission_Approve @default(Waiting)
-  classroom_id            String
-  created_at              DateTime           @default(now())
-  updated_at              DateTime?
-  group                   Group?             @relation("Submission")
-  classroom               Classroom          @relation("SubmissionClassroom", fields: [classroom_id], references: [id])
-  proposed_advisor        Employee           @relation("ProposedAdvisor", fields: [proposed_advisor_id], references: [id])
-  proposed_co_advisor1    Employee?          @relation("ProposedCoAdvisor1", fields: [proposed_co_advisor1_id], references: [id])
-  proposed_co_advisor2    Employee?          @relation("ProposedCoAdvisor2", fields: [proposed_co_advisor2_id], references: [id])
-}
-
-model Proposal {
-  id                                       String                @id @default(uuid())
-  file_name_proposal                       String?
-  file_name_payment                        String?
-  file_name_plagiarismcheck                String?
-  upload_date_proposal                     DateTime?
-  upload_date_payment                      DateTime?
-  upload_date_plagiarismcheck              DateTime?
-  file_size_proposal                       String?
-  file_size_payment                        String?
-  file_size_plagiarismcheck                String?
-  file_path_proposal                       String?
-  file_path_payment                        String?
-  file_path_plagiarismcheck                String?
-  advisor_id                               String
-  co_advisor1_id                           String?
-  co_advisor2_id                           String?
-  classroom_id                             String
-  is_proposal_approve_by_advisor           Thesis_Approve?
-  is_proposal_approve_by_co_advisor1       Thesis_Approve?
-  is_proposal_approve_by_co_advisor2       Thesis_Approve?
-  advisor_proposal_approved_date           DateTime?
-  co_advisor1_proposal_approved_date       DateTime?
-  co_advisor2_proposal_approved_date       DateTime?
-  panelist_chairman_id                     String?
-  panelist_member_id                       String?
-  start_defence                            String?
-  end_defence                              String?
-  defence_room                             String?
-  defence_date                             String?
-  is_report_open                           Boolean?
-  is_report_approve_by_dekan               Boolean?
-  is_report_approve_by_panelist_chairman   Boolean?
-  is_report_approve_by_panelist_member     Boolean?
-  is_report_approve_by_advisor             Boolean?
-  dekan_report_approve_date                DateTime?
-  panelist_chairman_report_approve_date    DateTime?
-  panelist_member_report_approve_date      DateTime?
-  advisor_report_approve_date              DateTime?
-  exam_conclution                          Exam_Conclution?
-  changes_conclusion                       Changes_Conclusion?
-  is_pass                                  Pass?
-  report_date                              String?
-  file_name_revision                       String?
-  upload_date_revision                     DateTime?
-  file_size_revision                       String?
-  file_path_revision                       String?
-  is_revision_approve_by_panelist_chairman Revision_Approve?
-  is_revision_approve_by_panelist_member   Revision_Approve?
-  is_revision_approve_by_advisor           Revision_Approve?
-  panelist_chairman_revision_approve_date  DateTime?
-  panelist_member_revision_approve_date    DateTime?
-  advisor_revision_approve_date            DateTime?
-  panelist_chairman_revision_comment       String?
-  panelist_member_revision_comment         String?
-  advisor_revision_comment                 String?
-  submission_dateline                      DateTime?
-  completed_status                         Boolean?
-  approve_date                             DateTime?
-  group                                    Group?                @relation("Proposal")
-  advisor                                  Employee              @relation("ProposalAdvisor", fields: [advisor_id], references: [id])
-  classroom                                Classroom             @relation("ProposalClassroom", fields: [classroom_id], references: [id])
-  co_advisor1                              Employee?             @relation("ProposalCoAdvisor1", fields: [co_advisor1_id], references: [id])
-  co_advisor2                              Employee?             @relation("ProposalCoAdvisor2", fields: [co_advisor2_id], references: [id])
-  panelist_chairman                        Employee?             @relation("ProposalPanelistChairman", fields: [panelist_chairman_id], references: [id])
-  panelist_member                          Employee?             @relation("ProposalPanelistMember", fields: [panelist_member_id], references: [id])
-  assessment                               Proposal_Assessment[] @relation("Assessment")
-  changes                                  Proposal_Changes[]    @relation("Changes")
-  conclusion_value                         Proposal_Conclusion[] @relation("Conclusion_Value")
-}
-
-model Skripsi {
-  id                                       String               @id @default(uuid())
-  file_name_skripsi                        String?
-  file_name_payment                        String?
-  file_name_plagiarismcheck                String?
-  upload_date_skripsi                      DateTime?
-  upload_date_payment                      DateTime?
-  upload_date_plagiarismcheck              DateTime?
-  file_size_skripsi                        String?
-  file_size_payment                        String?
-  file_size_plagiarismcheck                String?
-  file_path_skripsi                        String?
-  file_path_payment                        String?
-  file_path_plagiarismcheck                String?
-  advisor_id                               String
-  co_advisor1_id                           String?
-  co_advisor2_id                           String?
-  classroom_id                             String?
-  is_skripsi_approve_by_advisor            Thesis_Approve?
-  is_skripsi_approve_by_co_advisor1        Thesis_Approve?
-  is_skripsi_approve_by_co_advisor2        Thesis_Approve?
-  advisor_skripsi_approved_date            DateTime?
-  co_advisor1_skripsi_approved_date        DateTime?
-  co_advisor2_skripsi_approved_date        DateTime?
-  panelist_chairman_id                     String?
-  panelist_member_id                       String?
-  start_defence                            String?
-  end_defence                              String?
-  defence_room                             String?
-  defence_date                             String?
-  is_report_open                           Boolean?
-  is_report_approve_by_dekan               Boolean?
-  is_report_approve_by_panelist_chairman   Boolean?
-  is_report_approve_by_panelist_member     Boolean?
-  is_report_approve_by_advisor             Boolean?
-  dekan_report_approve_date                DateTime?
-  panelist_chairman_report_approve_date    DateTime?
-  panelist_member_report_approve_date      DateTime?
-  advisor_report_approve_date              DateTime?
-  exam_conclution                          Exam_Conclution?
-  changes_conclusion                       Changes_Conclusion?
-  is_pass                                  Pass?
-  report_date                              String?
-  file_name_revision                       String?
-  upload_date_revision                     DateTime?
-  file_size_revision                       String?
-  file_path_revision                       String?
-  is_revision_approve_by_panelist_chairman Revision_Approve?
-  is_revision_approve_by_panelist_member   Revision_Approve?
-  is_revision_approve_by_advisor           Revision_Approve?
-  panelist_chairman_revision_approve_date  DateTime?
-  panelist_member_revision_approve_date    DateTime?
-  advisor_revision_approve_date            DateTime?
-  panelist_chairman_revision_comment       String?
-  panelist_member_revision_comment         String?
-  advisor_revision_comment                 String?
-  submission_dateline                      DateTime?
-  completed_status                         Boolean?
-  approve_date                             DateTime?
-  file_name_hki                            String?
-  file_name_journal                        String?
-  file_name_sourcecode                     String?
-  upload_date_hki                          DateTime?
-  upload_date_journal                      DateTime?
-  upload_date_sourcecode                   DateTime?
-  file_size_hki                            String?
-  file_size_journal                        String?
-  file_size_sourcecode                     String?
-  link_soucecode                           String?
-  upload_date_link_soucecode               DateTime?
-  file_path_hki                            String?
-  file_path_journal                        String?
-  file_path_sourcecode                     String?
-  group                                    Group?               @relation("Skripsi")
-  advisor                                  Employee             @relation("SkripsiAdvisor", fields: [advisor_id], references: [id])
-  classroom                                Classroom?           @relation("SkripsiClassroom", fields: [classroom_id], references: [id])
-  co_advisor1                              Employee?            @relation("SkripsiCoAdvisor1", fields: [co_advisor1_id], references: [id])
-  co_advisor2                              Employee?            @relation("SkripsiCoAdvisor2", fields: [co_advisor2_id], references: [id])
-  panelist_chairman                        Employee?            @relation("SkripsiPanelistChairman", fields: [panelist_chairman_id], references: [id])
-  panelist_member                          Employee?            @relation("SkripsiPanelistMember", fields: [panelist_member_id], references: [id])
-  assessment                               Skripsi_Assessment[] @relation("Assessment")
-  changes                                  Skripsi_Changes[]    @relation("Changes")
-  conclusion_value                         Skripsi_Conclusion[] @relation("Conclusion_Value")
-}
-
-model Proposal_Assessment {
-  id          String   @id @default(uuid())
-  proposal_id String
-  student_id  String
-  dosen_id    String
-  value       String?
-  dosen       Employee @relation("Dosen", fields: [dosen_id], references: [id])
-  proposal    Proposal @relation("Assessment", fields: [proposal_id], references: [id])
-  student     Student  @relation("Student", fields: [student_id], references: [id], onDelete: Cascade)
-}
-
-model Skripsi_Assessment {
-  id         String   @id @default(uuid())
-  skripsi_id String
-  student_id String
-  dosen_id   String
-  value      String?
-  dosen      Employee @relation("Dosen", fields: [dosen_id], references: [id])
-  skripsi    Skripsi  @relation("Assessment", fields: [skripsi_id], references: [id])
-  student    Student  @relation("Student", fields: [student_id], references: [id], onDelete: Cascade)
-}
-
-model Proposal_Changes {
-  id          String   @id @default(uuid())
-  proposal_id String
-  dosen_id    String
-  judul       String?
-  bab1        String?
-  bab2        String?
-  bab3        String?
-  other       String?
-  dosen       Employee @relation("Dosen", fields: [dosen_id], references: [id])
-  proposal    Proposal @relation("Changes", fields: [proposal_id], references: [id])
-}
-
-model Skripsi_Changes {
-  id         String   @id @default(uuid())
-  skripsi_id String
-  dosen_id   String
-  changes    String?
-  abstrak    String?
-  bab1       String?
-  bab2       String?
-  bab3       String?
-  bab4       String?
-  bab5       String?
-  other      String?
-  dosen      Employee @relation("Dosen", fields: [dosen_id], references: [id])
-  skripsi    Skripsi  @relation("Changes", fields: [skripsi_id], references: [id])
-}
-
-model Proposal_Conclusion {
-  id                    String   @id @default(uuid())
-  proposal_id           String
-  student_id            String
-  assessment_conclution String?
-  proposal              Proposal @relation("Conclusion_Value", fields: [proposal_id], references: [id])
-  student               Student  @relation("Student", fields: [student_id], references: [id], onDelete: Cascade)
-}
-
-model Skripsi_Conclusion {
-  id                    String  @id @default(uuid())
-  skripsi_id            String
-  student_id            String
-  assessment_conclution String?
-  skripsi               Skripsi @relation("Conclusion_Value", fields: [skripsi_id], references: [id])
-  student               Student @relation("Student", fields: [student_id], references: [id], onDelete: Cascade)
-}
-
-model Thesis_Consultation {
-  id                  String              @id @default(uuid())
-  group_id            String
-  description         String
-  date                DateTime
-  dosen_id            String
-  consultation_status Consultation_Status
-  dosen               Employee            @relation("ThesisConsultation", fields: [dosen_id], references: [id])
-  group               Group               @relation("ThesisConsultation", fields: [group_id], references: [id])
-}
-
-model Thesis_History {
-  id          String   @id @default(uuid())
-  user_id     String
-  description String
-  date        DateTime
-  group_id    String
-  group       Group    @relation("History", fields: [group_id], references: [id])
-}
-
-model Thesis_Link {
-  id       String   @id @default(uuid())
-  group_id String
-  name     String
-  link     String
-  date     DateTime
-  group    Group    @relation("Link", fields: [group_id], references: [id])
 }
 
 model Cpl {
@@ -843,173 +326,6 @@ model ReportDetail {
   createAt      DateTime @default(now())
   updateAt      DateTime
   Rps           Rps      @relation(fields: [rpsId], references: [id], onDelete: Cascade)
-}
-
-model AKAD_Academic_Consultation {
-  id                   String             @id
-  studentId            String
-  receiverId           String
-  receiver_name        String             @db.VarChar(255)
-  topic                String             @db.VarChar(50)
-  student_name         String             @db.VarChar(255)
-  supervisor_name      String             @db.VarChar(255)
-  student_major        String             @db.VarChar(50)
-  student_arrival_year String             @db.VarChar(50)
-  createdAt            DateTime           @default(now()) @db.Timestamptz(3)
-  updatedAt            DateTime           @default(now()) @db.Timestamptz(3)
-  status               ConsultationStatus @default(Waiting)
-  description          String
-  Employee             Employee           @relation(fields: [receiverId], references: [id])
-  Student              Student            @relation(fields: [studentId], references: [id])
-  AKAD_Message         AKAD_Message[]
-}
-
-model AKAD_Activity {
-  id                  String                @id
-  title               String
-  description         String
-  dueDate             DateTime
-  isAttendance        Boolean
-  isDone              Boolean               @default(false)
-  activityType        ActivityType
-  employeeId          String
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime
-  Employee            Employee              @relation(fields: [employeeId], references: [id])
-  AKAD_ActivityMember AKAD_ActivityMember[]
-}
-
-model AKAD_ActivityMember {
-  presence      Boolean?
-  activityId    String
-  studentId     String
-  AKAD_Activity AKAD_Activity @relation(fields: [activityId], references: [id])
-  Student       Student       @relation(fields: [studentId], references: [id])
-
-  @@unique([activityId, studentId])
-}
-
-model AKAD_Certificate {
-  id             String               @id
-  filename       String
-  path           String
-  title          String
-  category       Certificate_Category
-  level          Certificate_Level
-  description    String
-  comments       String?
-  approvalDate   DateTime?            @db.Timestamptz(3)
-  submitDate     DateTime             @default(now()) @db.Timestamptz(3)
-  approvalStatus status               @default(WAITING)
-  studentId      String
-  Student        Student              @relation(fields: [studentId], references: [id])
-}
-
-model AKAD_Grades {
-  id                      String                   @id
-  grades                  String?
-  lecturer                String
-  description             String?
-  submited_Date           DateTime                 @default(now())
-  subjectId               String?
-  subjectName             String?
-  transactionId           String?
-  Subject                 Subject?                 @relation(fields: [subjectId], references: [id])
-  AKAD_Transaction_Grades AKAD_Transaction_Grades? @relation(fields: [transactionId], references: [id])
-}
-
-model AKAD_Grades_access {
-  id             String    @id
-  semester       Semester
-  semesterPeriod String?
-  major          Major
-  dueDate        DateTime
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime
-  isOpen         Boolean   @default(true)
-  employeeId     String?
-  Employee       Employee? @relation(fields: [employeeId], references: [id])
-}
-
-model AKAD_GuidanceClass {
-  id                       String                     @id
-  teacherId                String                     @unique
-  createdAt                DateTime                   @default(now())
-  updatedAt                DateTime
-  Employee                 Employee                   @relation(fields: [teacherId], references: [id])
-  AKAD_GuidanceClassMember AKAD_GuidanceClassMember[]
-}
-
-model AKAD_GuidanceClassMember {
-  studentId          String             @unique
-  guidanceClassId    String
-  AKAD_GuidanceClass AKAD_GuidanceClass @relation(fields: [guidanceClassId], references: [id], onDelete: Cascade)
-  Student            Student            @relation(fields: [studentId], references: [id])
-
-  @@unique([studentId, guidanceClassId])
-}
-
-model AKAD_ListOfRequest {
-  preRegistrationDataId    String
-  subjectId                String
-  AKAD_PreRegistrationData AKAD_PreRegistrationData @relation(fields: [preRegistrationDataId], references: [id])
-  Subject                  Subject                  @relation(fields: [subjectId], references: [id])
-
-  @@unique([preRegistrationDataId, subjectId])
-}
-
-model AKAD_Message {
-  id                         String                     @id
-  academic_consultation_id   String
-  sender_name                String                     @db.VarChar(255)
-  content                    String
-  createdAt                  DateTime                   @default(now()) @db.Timestamptz(3)
-  AKAD_Academic_Consultation AKAD_Academic_Consultation @relation(fields: [academic_consultation_id], references: [id])
-}
-
-model AKAD_PreRegistration {
-  id                       String                     @id
-  semester                 Semester
-  semesterPeriod           String
-  major                    Major
-  dueDate                  DateTime
-  isOpen                   Boolean                    @default(true)
-  employeeId               String
-  createdAt                DateTime                   @default(now())
-  updatedAt                DateTime
-  Employee                 Employee                   @relation(fields: [employeeId], references: [id])
-  AKAD_PreRegistrationData AKAD_PreRegistrationData[]
-}
-
-model AKAD_PreRegistrationData {
-  id                   String               @id
-  studentId            String
-  employeeId           String
-  status               status?              @default(WAITING)
-  description          String?
-  comments             String?
-  submitDate           DateTime             @default(now())
-  approveDate          DateTime?
-  preRegistrationId    String
-  AKAD_ListOfRequest   AKAD_ListOfRequest[]
-  Employee             Employee             @relation(fields: [employeeId], references: [id])
-  AKAD_PreRegistration AKAD_PreRegistration @relation(fields: [preRegistrationId], references: [id])
-  Student              Student              @relation(fields: [studentId], references: [id])
-
-  @@unique([preRegistrationId, studentId])
-}
-
-model AKAD_Transaction_Grades {
-  id           String        @id
-  submitedDate DateTime      @default(now()) @db.Timestamptz(3)
-  approveDate  DateTime?     @db.Timestamptz(3)
-  semester     String
-  comments     String?
-  isInput      Boolean       @default(true)
-  status       status        @default(WAITING)
-  studentId    String
-  AKAD_Grades  AKAD_Grades[]
-  Student      Student       @relation(fields: [studentId], references: [id])
 }
 
 model AssessmentIndicator {
