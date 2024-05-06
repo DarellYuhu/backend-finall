@@ -17,6 +17,7 @@ import path from "path";
 // Controller
 import CurriculumController from "./curriculum/curriculum.controller";
 import RpsController from "./rps/rps.controller";
+import ReportDetailController from "./reportDetail/reportDetail.controller";
 
 const app: Application = express();
 const httpServer = http.createServer(app);
@@ -45,7 +46,7 @@ app.use("/api", RouterApi);
     RouterApi.use("/rps", RpsController);
     RouterApi.use("/student-grade", RouterStudentGrade);
     RouterApi.use("/report-summary", RouterReportSummary);
-    RouterApi.use("/report-detail", RouterReportDetail);
+    RouterApi.use("/report-detail", ReportDetailController);
 
     httpServer.listen(Config.PORT, () =>
       console.log(`Server running on port ${Config.PORT}`)
