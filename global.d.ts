@@ -5,6 +5,9 @@ import {
   CpmkGrading,
   MeetingPlan,
   StudentAssignmentPlan,
+  gender,
+  Major,
+  Role,
 } from "@prisma/client";
 import { Request } from "express";
 
@@ -64,6 +67,34 @@ declare type studentCpmkGradeType = {
   firstName: string;
   lastName: string;
   nim: string;
+};
+
+declare type TStudentXlsx = {
+  nim: string;
+  firstName: string;
+  lastName: string;
+  phoneNo: string;
+  gender: gender;
+  major: Major;
+  religion: string;
+  currentResidenceStatus: string;
+  studentEmail: string;
+  address: string;
+  curriculumId: string;
+  guardianName: string;
+  familyRelation: string;
+  reg_num: string;
+  arrivalYear: string;
+};
+
+declare type TEmployeeXlsx = {
+  nik: string;
+  firstName: string;
+  lastName: string;
+  role: Role;
+  major: Major;
+  email: string;
+  phoneNum: string;
 };
 
 interface ExtendedRequest extends Request {
