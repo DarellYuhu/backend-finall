@@ -19,6 +19,7 @@ import CurriculumController from "./curriculum/curriculum.controller";
 import RpsController from "./rps/rps.controller";
 import ReportDetailController from "./reportDetail/reportDetail.controller";
 import ReportsummaryController from "./reportSummary/reportSummary.controller";
+import StudentGradeController from "./studentGrade/studentGrade.controller";
 
 const app: Application = express();
 const httpServer = http.createServer(app);
@@ -45,7 +46,7 @@ app.use("/api", RouterApi);
     RouterApi.use("/curriculum", CurriculumController);
     RouterApi.use("/subject", RouterSubject);
     RouterApi.use("/rps", RpsController);
-    RouterApi.use("/student-grade", RouterStudentGrade);
+    RouterApi.use("/student-grade", StudentGradeController);
     RouterApi.use("/report-summary", ReportsummaryController);
     RouterApi.use("/report-detail", ReportDetailController);
 
