@@ -36,7 +36,7 @@ const createManyEmployeeTransaction = async (data: TEmployeeXlsx[]) => {
       skipDuplicates: true,
     });
 
-    return totalInsert.count;
+    return totalInsert;
   });
 };
 

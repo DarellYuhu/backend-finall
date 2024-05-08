@@ -53,7 +53,7 @@ const createManyStudentTransaction = async (data: TStudentXlsx[]) => {
       skipDuplicates: true,
     });
 
-    return totalInsert.count;
+    return totalInsert;
   });
 };
 

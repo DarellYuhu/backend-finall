@@ -8,7 +8,7 @@ const upload = multer();
 router.post("/create-many", upload.single("file"), async (req, res) => {
   try {
     const file = req.file;
-    const data = studentService.createManyStudent(file);
+    const data = await studentService.createManyStudent(file);
     res.status(200).json({ status: true, message: "Success", data });
   } catch (error) {
     if (error.name === "ValidationError") {
