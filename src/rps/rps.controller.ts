@@ -5,7 +5,7 @@ import type { Request } from "express";
 
 const router = express.Router();
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const data = await rpsService.getRpsById(id);
@@ -32,7 +32,7 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const data = rpsService.deleteRps(id);
@@ -59,7 +59,7 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-router.patch("/:id", auth, async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const payload = req.body;

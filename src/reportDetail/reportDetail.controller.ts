@@ -4,7 +4,7 @@ import reportDetailService from "./reportDetail.service";
 
 const router = express.Router();
 
-router.put("/:rpsId", auth, async (req, res) => {
+router.put("/:rpsId", async (req, res) => {
   try {
     const { rpsId } = req.params;
     const data = await reportDetailService.createOrUpdateRps(rpsId);
@@ -23,7 +23,7 @@ router.put("/:rpsId", auth, async (req, res) => {
   }
 });
 
-router.get("/:rpsId", auth, async (req, res) => {
+router.get("/:rpsId", async (req, res) => {
   try {
     const { rpsId } = req.params;
     const data = await reportDetailService.getReportDetail(rpsId);

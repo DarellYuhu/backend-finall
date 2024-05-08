@@ -5,7 +5,7 @@ import { mappingCplSchema } from "../schemas";
 
 const router = Router();
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await subjectService.getAllSubject();
     return res.json({
@@ -23,7 +23,7 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.get("/:id/cpl", auth, async (req, res) => {
+router.get("/:id/cpl", async (req, res) => {
   try {
     const { id } = req.params;
     const data = subjectService.getSubjectById(id);
@@ -42,7 +42,7 @@ router.get("/:id/cpl", auth, async (req, res) => {
   }
 });
 
-router.get("/:id/prerequisite", auth, async (req, res) => {
+router.get("/:id/prerequisite", async (req, res) => {
   try {
     const { id } = req.params;
     const data = await subjectService.getPrerequisiteSubject(id);
@@ -63,7 +63,6 @@ router.get("/:id/prerequisite", auth, async (req, res) => {
 
 router.put(
   "/:id/cpl-mapping",
-  auth,
   validateSchema(mappingCplSchema),
   async (req, res) => {
     try {
@@ -101,7 +100,7 @@ router.put(
   }
 );
 
-router.get("/:id/cpl-mapping", auth, async (req, res) => {
+router.get("/:id/cpl-mapping", async (req, res) => {
   try {
     const { id } = req.params;
     const data = await subjectService.getSubjectCpl(id);

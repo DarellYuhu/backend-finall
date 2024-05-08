@@ -10,7 +10,6 @@ const router = express.Router();
 
 router.post(
   "/",
-  auth,
   upload.single("curriculumFile"),
   validateSchema(createCurriculumSchema),
   async (req, res) => {
@@ -59,7 +58,6 @@ router.post(
 
 router.post(
   "/:id/cpl",
-  auth,
   upload.single("curriculumCpl"),
   validateSchema(xlsxFileSchema),
   async (req, res) => {
@@ -108,7 +106,7 @@ router.post(
   }
 );
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const major = req.query.major as string;
     const data = await curriculumService.getAllCurriculum(major);
@@ -127,7 +125,7 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const data = await curriculumService.getCurriculumById(id);
@@ -146,7 +144,7 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const curriculum = await curriculumService.deleteCurriculum(id);
